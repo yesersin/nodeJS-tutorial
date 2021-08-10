@@ -11,3 +11,13 @@ Ciddiye almak isterseniz issuse sizi bekler.
       (   ___          :
       _) (__ \        .'
      (______) '-....-'
+
+
+           __
+         /|
+        / \
+        \  \
+        }]::)==-{)
+        /  /
+        \ /
+         \|__
