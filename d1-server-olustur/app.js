@@ -10,4 +10,5 @@ const server=http.createServer((istek,cevap)=>{
 
 server.listen(port, host,()=>{
     console.log("http://"+host+":"+port);
+    console.log(`http://${host}:${port} ok.`)
 });
