@@ -1,6 +1,7 @@
 const data = require('./data.js');
 const express = require("express");
 const server = express(); //expresi cagır
+ server.use(express.json()); //bütün gelen isteklerde bunu kullan dedik.
 
 server.get("/",(req,res)=>{
     res.send("Express");
@@ -11,12 +12,14 @@ server.listen(5000,()=>{
     console.log("istek geldi.")
 });
 
-server.get("/musteriler",(req,res)=>{
+server.get("/musteriler",(istek,cevap)=>{
     //res.send("musteriler");
-    res.status(200).json(data);
+    cevap.status(200).json(data);
 });
 
 server.get("/musteriler/:id",(istek,cevap)=>{ 
+    //console.log("istek:body:",istek.body);
+    console.log("istek:query",istek.query); /*!url den gelen ?ad=erkan gibi degerleri dizi seklinde tutar */
     var id = istek.params.id;  
     // const { id } = istek.params;
     const musterilerx = data.find(musterilerx=> musterilerx.id === parseInt(id));
