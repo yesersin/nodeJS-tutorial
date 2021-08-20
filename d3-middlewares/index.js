@@ -16,9 +16,12 @@ server.get("/",(i,c)=>{
 });
 
 server.get("*",(i,c)=>{ //yol bulamadım gitmeye. 
-    c.send("sayfa bulunamadı");
+    c.send("get sayfa bulunamadı");
 });
 
+server.post("*",(i,c)=>{ //yol bulamadım gitmeye. 
+    c.send("post sayfa bulunamadı");
+});
 server.use(errorHandling); //bu listen den once olmalı. yukarda olursa hata verebilir.
 
 server.listen(5000,()=> {
