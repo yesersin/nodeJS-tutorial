@@ -14,3 +14,11 @@ server.listen(5000,()=>{
     //gelen tüm istekleri dinşe
     console.log("istek geldi.");
 });
+
+
+/**
+ * var app = server.listen(3000,function() {
+     console.log("sunucu dinleniyor port: %d",app.address().port);
+ });
+ */
+

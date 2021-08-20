@@ -15,6 +15,9 @@ server.get("/",(i,c)=>{
     c.send("Express");
 });
 
+server.get("*",(i,c)=>{ //yol bulamadım gitmeye. 
+    c.send("sayfa bulunamadı");
+});
 
 server.use(errorHandling); //bu listen den once olmalı. yukarda olursa hata verebilir.
 
