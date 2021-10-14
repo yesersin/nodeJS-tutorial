@@ -2,17 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 const User = require('../models/User');
-
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-
-/* POst users listing. */
-router.post("/register", async (req, res) => {
+ router.post("/register", async (req, res) => {
   const body = req.body;
   if (!(body.usernameq && body.passwordq)) {
     return res.status(400).send({ error: "Eksik bilgi girdiniz" });
   }
-  // createing a new mongoose doc from user data
   const user = new User({
     username: body.usernameq,
     password: body.passwordq,
@@ -45,18 +42,19 @@ router.post("/register", async (req, res) => {
       });
     }
   });
-
-
 });
 
 
 router.post("/login", async (req, res) => {
   const body = req.body;
-  const user = await User.findOne({ username: body.usernameq });
+  const uname = body.username;
+  const user = await User.findOne({ username: body.usernameq },);
   if (user) {
     const validPassword = await bcrypt.compare(body.passwordq, user.password);
     if (validPassword) {
-      res.status(200).json({ message: "Şifre dogru" });
+      //res.status(200).json({ message: "Şifre dogru" });
+      const token = jwt.sign({uname}, req.app.get('apiKey_jsonwebtoken'),{expiresIn:720});
+      res.status(200).json({ data:user, token: token});
     } else {
       res.status(400).json({ error: "Şifre hatası" });
     }

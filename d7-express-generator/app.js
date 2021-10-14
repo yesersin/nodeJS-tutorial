@@ -9,8 +9,8 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const profileRouter= require('./routes/profile');
 const booksRouter= require('./routes/books');
-
-
+const myconfig = require('./myconf');
+const verifyJwtToken = require('./middleware/verify-jwt');
 const app = express();
 
 // mongoose.connect('mongodb://localhost:27017/udemy');
@@ -41,17 +41,19 @@ mongoose.connect("mongodb://localhost:27017/udemy", {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.set('apiKey_jsonwebtoken', myconfig.apiKey_jsonwebtoken);
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use('/',verifyJwtToken);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/profile', profileRouter);
-app.use('/books', booksRouter);
+app.use('/profile', verifyJwtToken, profileRouter);
+app.use('/books', verifyJwtToken, booksRouter);
 
 
 // catch 404 and forward to error handler
